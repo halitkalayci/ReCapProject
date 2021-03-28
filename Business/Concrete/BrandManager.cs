@@ -33,12 +33,12 @@ namespace Business.Concrete
 
         public Brand GetById(int brandId)
         {
-            return _brandDal.GetById(brandId);
+            return _brandDal.Get(b => b.Id == brandId);
         }
 
         public void Update(Brand brand)
         {
-            return _brandDal.Update(brand);
+            _brandDal.Update(brand);
         }
     }
 }
