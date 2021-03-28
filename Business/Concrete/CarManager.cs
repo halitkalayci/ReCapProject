@@ -18,6 +18,16 @@ namespace Business.Concrete
 
         public void Add(Car car)
         {
+            if (car.Description.Length < 2)
+            {
+                Console.WriteLine("Araba eklenemedi. Açıklama 2 karakterden uzun olmalıdır.");
+                return;
+            }
+            if(car.DailyPrice <= 0)
+            {
+                Console.WriteLine("Araba eklenemedi. Günlük fiyat 0'dan büyük olmalıdır.");
+                return;
+            }
             _carDal.Add(car);
         }
 
@@ -29,6 +39,16 @@ namespace Business.Concrete
         public List<Car> GetAll()
         {
             return _carDal.GetAll();
+        }
+
+        public List<Car> GetByBrandId(int brandId)
+        {
+            return _carDal.GetCarsByBrandId(brandId);
+        }
+
+        public List<Car> GetByColorId(int colorId)
+        {
+            return _carDal.GetCarsByColorId(colorId);
         }
 
         public Car GetById(int carId)
