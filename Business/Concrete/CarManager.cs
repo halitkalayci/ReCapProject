@@ -1,4 +1,5 @@
 ﻿using Business.Abstract;
+using Business.Constants;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
@@ -22,22 +23,20 @@ namespace Business.Concrete
         {
             if (car.Description.Length < 2)
             {
-                Console.WriteLine("Araba eklenemedi. Açıklama 2 karakterden uzun olmalıdır.");
-                return new ErrorResult();
+                return new ErrorResult(Messages.CarNameLengthShort);
             }
             if(car.DailyPrice <= 0)
             {
-                Console.WriteLine("Araba eklenemedi. Günlük fiyat 0'dan büyük olmalıdır.");
-                return new ErrorResult();
+                return new ErrorResult(Messages.CarDailyPriceInvalid);
             }
             _carDal.Add(car);
-            return new SuccessResult();
+            return new SuccessResult(Messages.CarAdded);
         }
 
         public IResult Delete(Car car)
         {
             _carDal.Delete(car);
-            return new SuccessResult();
+            return new SuccessResult(Messages.CarDeleted);
         }
 
         public IDataResult<List<Car>> GetAll()
@@ -68,7 +67,7 @@ namespace Business.Concrete
         public IResult Update(Car car)
         {
             _carDal.Update(car);
-            return new SuccessResult();
+            return new SuccessResult(Messages.CarUpdated);
         }
     }
 }

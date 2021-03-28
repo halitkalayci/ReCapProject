@@ -12,6 +12,16 @@ namespace ConsoleUI
     {
         static void Main(string[] args)
         {
+            //CarBrandandColorTest();
+            IUserService userService = new UserManager(new EfUserDal());
+            ICustomerService customerService = new CustomerManager(new EfCustomerDal());
+            IRentalService rentalService = new RentalManager(new EfRentalDal());
+            var rental = rentalService.Add(new Rental { CarId = 1, CustomerId = 1, RentDate = new DateTime(2021,1,12),ReturnDate=new DateTime(2021,1,15) });
+            Console.WriteLine(rental.Message);
+        }
+
+        private static void CarBrandandColorTest()
+        {
             ICarService carService = new CarManager(new EfCarDal());
             IBrandService brandService = new BrandManager(new EfBrandDal());
             IColorService colorService = new ColorManager(new EfColorDal());
@@ -32,7 +42,6 @@ namespace ConsoleUI
             {
                 Console.WriteLine($"{brand.Id} kodlu marka : {brand.Name}");
             }
-
         }
     }
 }
