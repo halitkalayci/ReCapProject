@@ -13,10 +13,15 @@ namespace ConsoleUI
         static void Main(string[] args)
         {
             //CarBrandandColorTest();
+            //UserCustomerRentalTest();
+        }
+
+        private static void UserCustomerRentalTest()
+        {
             IUserService userService = new UserManager(new EfUserDal());
             ICustomerService customerService = new CustomerManager(new EfCustomerDal());
             IRentalService rentalService = new RentalManager(new EfRentalDal());
-            var rental = rentalService.Add(new Rental { CarId = 1, CustomerId = 1, RentDate = new DateTime(2021,1,12),ReturnDate=new DateTime(2021,1,15) });
+            var rental = rentalService.Add(new Rental { CarId = 1, CustomerId = 1, RentDate = new DateTime(2021, 1, 12), ReturnDate = new DateTime(2021, 1, 15) });
             Console.WriteLine(rental.Message);
         }
 
@@ -28,7 +33,7 @@ namespace ConsoleUI
 
             foreach (Car car in carService.GetAll().Data)
             {
-                Console.WriteLine($"\n {car.Id} kodlu araba bilgileri : {car.Description} , Günlük ücret {car.DailyPrice} , Model Yılı {car.ModelYear} \n");
+                Console.WriteLine($"\n {car.Id} kodlu araba bilgileri : {car.Name} , Günlük ücret {car.DailyPrice} , Model Yılı {car.ModelYear} \n");
             }
             foreach (CarDetailDto carDetail in carService.GetAllDetails().Data)
             {

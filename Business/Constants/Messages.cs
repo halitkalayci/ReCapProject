@@ -27,6 +27,10 @@ namespace Business.Constants
         public static string BrandAdded = "Marka başarıyla eklendi";
         public static string BrandUpdated = "Marka başarıyla güncellendi";
         public static string BrandDeleted = "Marka başarıyla güncellendi";
-        internal static string UserExists = "Bu e-posta ile kayıtlı kullanıcı bulunmaktadır.";
+        public static string UserExists = "Bu e-posta ile kayıtlı kullanıcı bulunmaktadır.";
+        public static string CarImageAdded = "Araba resmi başarıyla eklendi.";
+        public static string CarImageDeleted = "Araba resmi başarıyla silindi.";
+        public static string CarImageUpdated = "Araba resmi başarıyla güncellendi";
+        internal static string CarImageLimitExceeded;
     }
 }

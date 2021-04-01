@@ -15,8 +15,8 @@ namespace DataAccess.Concrete.InMemory
         public InMemoryCarDal()
         {
             _cars = new List<Car> { 
-            new Car{Id=1,ModelYear=2012,Description="BMW M5",DailyPrice=200,ColorId=1,BrandId=1},
-            new Car{Id=2,ModelYear=2019,Description="Mercedes Vito",DailyPrice=300,ColorId=1,BrandId=2},
+            new Car{Id=1,ModelYear=2012,Name="BMW M5",DailyPrice=200,ColorId=1,BrandId=1},
+            new Car{Id=2,ModelYear=2019,Name="Mercedes Vito",DailyPrice=300,ColorId=1,BrandId=2},
             };
         }
         public void Add(Car car)
@@ -70,7 +70,7 @@ namespace DataAccess.Concrete.InMemory
             carToUpdate.BrandId = car.BrandId;
             carToUpdate.ColorId = car.ColorId;
             carToUpdate.DailyPrice = car.DailyPrice;
-            carToUpdate.Description = car.Description;
+            carToUpdate.Name = car.Name;
             carToUpdate.ModelYear = car.ModelYear;
         }
     }

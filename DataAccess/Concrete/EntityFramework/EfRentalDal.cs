@@ -35,7 +35,7 @@ namespace DataAccess.Concrete.EntityFramework
                                  CarBrandName = b.Name,
                                  CarColorName = col.Name,
                                  CarDailyPrice = c.DailyPrice,
-                                 CarDescription = c.Description,
+                                 CarDescription = c.Name,
                                  CarModelYear = c.ModelYear,
                                  RentDate = r.RentDate,
                                  ReturnDate = r.ReturnDate.Value,

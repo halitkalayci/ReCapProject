@@ -13,7 +13,7 @@ namespace Business.ValidationResolvers.FluentValidation
         public CarValidator()
         {
             RuleFor(p => p.DailyPrice).GreaterThan(0).WithMessage(Messages.CarDailyPriceInvalid);
-            RuleFor(p => p.Description).Must(StartWithA);
+            //RuleFor(p => p.Name).Must(StartWithA);
         }
 
         private bool StartWithA(string arg)
