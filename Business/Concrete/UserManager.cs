@@ -1,5 +1,6 @@
 ﻿using Business.Abstract;
 using Business.Constants;
+using Core.Entities.Concrete;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
@@ -30,8 +31,8 @@ namespace Business.Concrete
 
         private IResult UserExists(string email)
         {
-            var user = _userDal.Get( u => u.Email == email );
-            if (user != null)
+            var user = GetByEmail( email );
+            if (user.Data != null)
                 return new ErrorResult(Messages.UserExists);
             return new SuccessResult();
         }
@@ -56,6 +57,16 @@ namespace Business.Concrete
         {
             _userDal.Update(user);
             return new SuccessResult(Messages.UserUpdated);
+        }
+
+        public IDataResult<User> GetByEmail(string email)
+        {
+            return new SuccessDataResult<User>(_userDal.Get(u => u.Email == email));
+        }
+
+        public IDataResult<List<OperationClaim>> GetClaims(User user)
+        {
+            return new SuccessDataResult<List<OperationClaim>>(_userDal.GetOperationClaims(user));
         }
     }
 }
