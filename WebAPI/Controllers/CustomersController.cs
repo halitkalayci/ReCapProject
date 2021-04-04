@@ -40,7 +40,12 @@ namespace WebAPI.Controllers
             }
             return BadRequest(result);
         }
-
+        [HttpGet("getdetails")]
+        public IActionResult GetAllDetails()
+        {
+            var result = _customerService.GetCustomerDetails();
+            return StatusCode(result.Success ? 200 : 400, result);
+        }
         [HttpPost("add")]
         public IActionResult Add(Customer customer)
         {

@@ -64,6 +64,16 @@ namespace DataAccess.Concrete.InMemory
             throw new NotImplementedException();
         }
 
+        public List<CarDetailDto> GetDetailsByBrandId(int brandId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public CarDetailDto GetDetailsById(int carId)
+        {
+            throw new NotImplementedException();
+        }
+
         public void Update(Car car)
         {
             Car carToUpdate = _cars.SingleOrDefault(c => c.Id == car.Id);

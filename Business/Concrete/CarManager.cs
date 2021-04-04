@@ -5,6 +5,7 @@ using Business.ValidationResolvers.FluentValidation;
 using Core.Aspects.Autofac.Caching;
 using Core.Aspects.Autofac.Validation;
 using Core.CrossCuttingConcerns.Validation;
+using Core.Utilities.Business;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
@@ -31,6 +32,10 @@ namespace Business.Concrete
         [ValidationAspect(typeof(CarValidator))]
         public IResult Add(Car car)
         {
+            var result = BusinessRules.Run(CarExists(car.Name));
+            if (result != null)
+                return result;
+
             _carDal.Add(car);
             return new SuccessResult(Messages.CarAdded);
         }
@@ -44,10 +49,10 @@ namespace Business.Concrete
         [CacheAspect]
         public IDataResult<List<Car>> GetAll()
         {
-            Thread.Sleep(TimeSpan.FromSeconds(11));
             return new SuccessDataResult<List<Car>>(_carDal.GetAll());
         }
 
+        [CacheAspect]
         public IDataResult<List<CarDetailDto>> GetAllDetails()
         {
             return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails());
@@ -73,6 +78,25 @@ namespace Business.Concrete
         {
             _carDal.Update(car);
             return new SuccessResult(Messages.CarUpdated);
+        }
+
+
+        public IResult CarExists(string carName)
+        {
+            var result = _carDal.Get(c => c.Name == carName);
+            if (result != null)
+                return new ErrorResult(Messages.CarExists);
+            return new SuccessResult();
+        }
+
+        public IDataResult<List<CarDetailDto>> GetDetailsByBrandId(int brandId)
+        {
+            return new SuccessDataResult<List<CarDetailDto>>( _carDal.GetDetailsByBrandId(brandId) );
+        }
+
+        public IDataResult<CarDetailDto> GetDetailsById(int carId)
+        {
+            return new SuccessDataResult<CarDetailDto>( _carDal.GetDetailsById(carId) );
         }
     }
 }

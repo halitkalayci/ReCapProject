@@ -13,7 +13,7 @@ namespace DataAccess.Concrete.EntityFramework
 {
     public class EfRentalDal : EfEntityRepositoryBase<Rental, ReCapContext>, IRentalDal
     {
-        public IDataResult<List<RentalDetailDto>> GetRentalDetails(Expression<Func<RentalDetailDto,bool>> filter = null)
+        public List<RentalDetailDto> GetRentalDetails(Expression<Func<RentalDetailDto,bool>> filter = null)
         {
             using(ReCapContext context = new ReCapContext())
             {
@@ -44,7 +44,7 @@ namespace DataAccess.Concrete.EntityFramework
                                  UserLastName = u.LastName
                              };
                 if (filter != null) result = result.Where(filter);
-                return new SuccessDataResult<List<RentalDetailDto>>(result.ToList());
+                return result.ToList();
             }
         }
     }

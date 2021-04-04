@@ -56,7 +56,7 @@ namespace Business.Concrete
         {
             var result = BusinessRules.Run(CheckIfCarHasImage(carId));
             if(result != null)
-                return new ErrorDataResult<List<CarImage>>(new List<CarImage>() { new CarImage { ImagePath = "default.png" } });
+                return new SuccessDataResult<List<CarImage>>(new List<CarImage>() { new CarImage { ImagePath = "default.png" } });
 
 
             return new SuccessDataResult<List<CarImage>>(_carImageDal.GetAll(c => c.CarId == carId));

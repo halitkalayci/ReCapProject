@@ -1,8 +1,10 @@
 ﻿using Business.Abstract;
 using Business.Constants;
+using Core.Utilities.Business;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
+using Entities.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -20,10 +22,10 @@ namespace Business.Concrete
 
         public IResult Add(Rental rental)
         {
-            var result = IsCarReturned(rental.CarId);
-            if (!result.Success)
+            var result = BusinessRules.Run( IsCarReturned(rental.CarId) );
+            if (result!=null)
             {
-                return new ErrorResult(result.Message);
+                return result;
             }
             _rentalDal.Add(rental);
             return new SuccessResult(Messages.RentalAdded);
@@ -31,8 +33,8 @@ namespace Business.Concrete
 
         private IResult IsCarReturned(int carId)
         {
-            var result = _rentalDal.GetRentalDetails();
-            if (result.Data != null && result.Data.Count > 0)
+            var result = _rentalDal.Get(c=>c.CarId == carId && c.ReturnDate == null);
+            if (result != null)
             {
                 return new ErrorResult(Messages.RentalCarMissing);
             }
@@ -60,6 +62,11 @@ namespace Business.Concrete
         {
             _rentalDal.Update(rental);
             return new SuccessResult(Messages.RentalUpdated);
+        }
+
+        public IDataResult<List<RentalDetailDto>> GetAllDetails()
+        {
+            return new SuccessDataResult<List<RentalDetailDto>>(_rentalDal.GetRentalDetails());
         }
     }
 }
