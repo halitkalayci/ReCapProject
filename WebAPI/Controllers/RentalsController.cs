@@ -47,6 +47,12 @@ namespace WebAPI.Controllers
             var result = _rentalService.GetAllDetails();
             return StatusCode(result.Success ? 200 : 400, result);
         }
+        [HttpGet("getdetailsbyid")]
+        public IActionResult GetDetailsById(int rentalId)
+        {
+            var result = _rentalService.GetAllDetailsById(rentalId);
+            return StatusCode(result.Success ? 200 : 400, result);
+        }
 
         [HttpPost("add")]
         public IActionResult Add(Rental rental)

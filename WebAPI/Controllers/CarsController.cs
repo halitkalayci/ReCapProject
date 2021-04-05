@@ -40,7 +40,6 @@ namespace WebAPI.Controllers
             var result = _carService.GetAllDetails();
             return StatusCode(result.Success ? 200 : 400, result);
         }
-
         [HttpGet("getbybrandid")]
         public IActionResult GetByBrandId(int brandId)
         {
@@ -61,7 +60,12 @@ namespace WebAPI.Controllers
             var result = _carService.GetByColorId(colorId);
             return StatusCode(result.Success ? 200 : 400, result);
         }
-
+        [HttpGet("getbyfilters")]
+        public IActionResult GetByFilters(int brandId, int colorId)
+        {
+            var result = _carService.GetByFilters(brandId, colorId);
+            return StatusCode(result.Success ? 200 : 400, result);
+        }
         [HttpPost("add")]
         public IActionResult Add(Car car)
         {
